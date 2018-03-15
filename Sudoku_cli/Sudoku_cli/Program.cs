@@ -42,6 +42,12 @@ namespace Sudoku_cli
             }
         }
 
+        public static void LosujPlansze()
+        {
+            // w przyszlosci zmienic na zwracanie tablicy ewentualnie zwracanie liczb ktore zostały wylosowane tak, by nie mozna bylo zmienic ich podczas wypelniania sudoku
+
+        }
+
         public static void ZmienCos()
         { // zmienanie elementu
             Console.WriteLine("x : ");
