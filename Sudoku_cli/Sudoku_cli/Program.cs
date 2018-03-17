@@ -45,7 +45,24 @@ namespace Sudoku_cli
         public static void LosujPlansze()
         {
             // w przyszlosci zmienic na zwracanie tablicy ewentualnie zwracanie liczb ktore zostały wylosowane tak, by nie mozna bylo zmienic ich podczas wypelniania sudoku
+            Random random = new Random();
+            // uzupelniamy tablice z liczbami losowymi cyframi 1-9
+            for (int i=0; i<9; i++)
+            {
+                int x = random.Next(0, 8);
+                int y = random.Next(0, 8);
 
+                tab[x, y] = random.Next(1, 9);
+                if (SprawdzPlanszeR() > 0)
+                {
+                    int aktualna = tab[x, y];
+                    tab[x, y] = random.Next(1, 9);
+                    if (aktualna == tab[x, y])
+                    {
+                        tab[x, y] = random.Next(1, 9);
+                    }
+                }
+            }
         }
 
         public static void ZmienCos()
@@ -127,10 +144,32 @@ namespace Sudoku_cli
             }
         }
 
+        public static int SprawdzPlanszeR()
+        {
+            int errors = 0;
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    int err = checkCell(i, j);
+                    errors = errors + err;
+                }
+            }
+            if (errors > 0)
+            {
+                return errors;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public static void Main(String[] args)
         {
             int w = 0;  // zmienna sterujaca, na razie bezuzyteczna
             int m = 0; // ruchy
+            LosujPlansze();
             RysujPlansze();
             ZmienCos();
             m++;
