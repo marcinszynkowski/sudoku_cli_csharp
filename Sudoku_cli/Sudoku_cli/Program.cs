@@ -1,7 +1,7 @@
 ﻿/*
 SUDOKU 
 NAJPROSTSZA WERSJA Z NAJPROSTSZYCH
-ALGORYTM SPRAWDZANIA PEWNIE NIEEFEKTYWNY, ALE DZIAŁA !!!
+ALGORYTM SPRAWDZANIA NIEEFEKTYWNY, ALE DZIAŁA !!!
  */
 
 
@@ -25,10 +25,39 @@ namespace Sudoku_cli
 
         public static void RysujPlansze()
         { // rysujemy plansze 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 10; i++)
             {
-                for (int j = 0; j < 9; j++)
+                if (i == 0 || i == 3 || i == 6 || i == 9)
                 {
+                    for (int k = 0; k < 10; k++)
+                    {
+                        
+                        if (k == 9)
+                        {
+                            Console.Write("****");
+                            continue;
+                        }
+                        Console.Write("***");
+                    }
+                    Console.WriteLine();
+                }
+                if (i == 9)
+                {
+                    continue;
+                }
+                
+                    for (int j = 0; j <= 9; j++) {
+
+                    if (j == 0 || j == 3 || j == 6)
+                    {
+                        Console.Write("*");
+                    }
+                    if (j == 9)
+                    {
+                        Console.Write("*");
+                        continue;
+                    }
+
                     if (tab[i, j] == 0)
                     {
                         Console.Write(" - "); // jesli jakis element jest zerem - to rysujemy kreske 
@@ -37,6 +66,11 @@ namespace Sudoku_cli
                     {
                         Console.Write(" " + tab[i, j] + " "); // jezeli nie, to wypisujemy ten element 
                     }
+
+                    //if ((i == 2 || i == 5 || i == 8) && (j == 2 || j == 5 || j == 8))
+                    //{
+                    //    Console.Write("*");
+                    //}
                 }
                 Console.WriteLine("");
             }
@@ -168,16 +202,16 @@ namespace Sudoku_cli
         public static void Main(String[] args)
         {
             int w = 0;  // zmienna sterujaca, na razie bezuzyteczna
-            int m = 0; // ruchy
+            int moves = 0; // ruchy
             LosujPlansze();
             RysujPlansze();
             ZmienCos();
-            m++;
+            moves++;
             while (w == 0)
             {
                 ZmienCos();
-                m++;
-                if (m > 2)
+                moves++;
+                if (moves > 2)
                 {
                     SprawdzPlansze();
                 }
